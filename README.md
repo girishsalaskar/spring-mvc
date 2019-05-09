@@ -1,2 +1,7 @@
 # spring-mvc
-Spring MVC Sample
+
+This is the simple project for demonstrating ***Spring MVC*** in **Eclipse**.
+
+Just add the project in your eclipse.
+
+Enjoy learning... :smile:
