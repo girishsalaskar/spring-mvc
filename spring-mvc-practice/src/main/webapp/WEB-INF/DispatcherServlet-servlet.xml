@@ -16,4 +16,5 @@
 		<property name="prefix" value="/WEB-INF/views/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
+	<mvc:resources location="/webjars/**" mapping="/webjars/"></mvc:resources>
 </beans>

@@ -5,6 +5,6 @@
 <title>Welcome</title>
 </head>
 <body>
-	Welcome ${name}. You entered ${password}
+	Welcome ${userName}. You entered ${password}
 </body>
 </html>
