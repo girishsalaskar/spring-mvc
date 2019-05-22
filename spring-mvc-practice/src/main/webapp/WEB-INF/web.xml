@@ -15,4 +15,8 @@
 		<servlet-name>DispatcherServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	<error-page>
+		<location>/WEB-INF/views/exception.jsp</location>
+	</error-page>
 </web-app>

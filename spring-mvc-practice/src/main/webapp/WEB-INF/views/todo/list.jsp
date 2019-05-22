@@ -1,13 +1,5 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
-<head>
-<title>Todos for ${name}</title>
-<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
-    rel="stylesheet">
-</head>
-<body>
-	<H1>Your Todos</H1>
+<%@include file="/common/header.jspf" %>
+	<H1><sTag:message code="list.yourTodos"></sTag:message></H1>
 	<div class="container">
 		<table class="table table-striped">
 			<caption>Your Todos are</caption>
@@ -17,6 +9,7 @@
 					<th>Description</th>
 					<th>Date</th>
 					<th>Completed</th>
+					<th>Update</th>
 					<th>Remove</th>
 				</tr>
 			</thead>
@@ -25,8 +18,10 @@
 				<c:forEach items="${todoList}" var="todo">
 					<tr>
 						<td>${todo.desc}</td>
-						<td>${todo.target}</td>
+						<td><fmt:formatDate value="${todo.target}" pattern="dd-MM-YYYY"/></td>
 						<td>${todo.done}</td>
+						<td><a type="button" class="btn btn-warning" 
+		href="/spring-mvc-practice/todoapp/update.mvc?id=${todo.id}">Update</a></td>
 						<td><a type="button" class="btn btn-warning" 
 		href="/spring-mvc-practice/todoapp/delete.mvc?id=${todo.id}">Delete</a></td>
 					</tr>
@@ -37,8 +32,4 @@
 	<div>
 		<a class="button" href="/spring-mvc-practice/todoapp/addNew.mvc">Add</a>
 	</div>
-	
-	<script src="/webjars/jquery/1.9.1/jquery.min.js"></script>
-    <script src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-</body>
-</html>
+<%@include file="/common/footer.jspf" %>

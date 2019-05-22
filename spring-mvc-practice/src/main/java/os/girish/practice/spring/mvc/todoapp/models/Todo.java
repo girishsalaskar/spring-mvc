@@ -8,10 +8,10 @@ public class Todo {
 
 	private int id;
 	private String user;
-	
-	@Size(min=5, message="Please enter minimum 5 characters!")
+
+	@Size(min = 5, message = "Please enter minimum 5 characters!")
 	private String desc;
-	
+
 	private Date target;
 	private boolean isDone;
 
@@ -32,8 +32,9 @@ public class Todo {
 	}
 
 	public Todo() {
-		
+
 	}
+
 	/**
 	 * @return the id
 	 */
@@ -128,7 +129,7 @@ public class Todo {
 
 	@Override
 	public String toString() {
-		return "Todo [id=" + id + ", user=" + user + ", desc=" + desc + ", target=" + target + ", isDone=" + isDone
-				+ "]";
+		return String.format("Todo [id=%s, user=%s, desc=%s, target=%s, isDone=%s]", id, user, desc, target,
+				isDone);
 	}
 }

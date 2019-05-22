@@ -24,6 +24,7 @@ public class LoginController {
 	
 	@GetMapping(value="/todoapp/login.mvc")
 	public String showLoginPage(ModelMap map) {
+		logger.debug("Login GET Method");
 		String userName = (String)map.get("userName");
 		if(userName!=null && userName!="") {
 			return "redirect:/todoapp/list.mvc";
@@ -34,6 +35,7 @@ public class LoginController {
 	@RequestMapping(value="/todoapp/login.mvc", method=RequestMethod.POST)
 	public String handleLogin(ModelMap model, 
 			@RequestParam String name, @RequestParam String password) {
+		logger.debug("Login POST Method");
 		if(loginService.validateUser(name, password)) {
 			model.clear();
 			model.put("userName", name);
@@ -45,6 +47,7 @@ public class LoginController {
 	}
 	@RequestMapping(value="/todoapp/register.mvc", method=RequestMethod.GET)
 	public String showRegisterPage() {
+		logger.debug("Register GET Method");
 		return "login/register";
 	}
 }
