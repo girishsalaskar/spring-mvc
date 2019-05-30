@@ -2,17 +2,32 @@ package os.girish.practice.spring.mvc.todoapp.models;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+@Entity
+@Table(name="todos")
 public class Todo {
 
+	@Id
+	@Column(name="id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	
 	private String user;
 
+	@Column(name="note")
 	@Size(min = 5, message = "Please enter minimum 5 characters!")
 	private String desc;
 
 	private Date target;
+	
+	@Column(name="is_done")
 	private boolean isDone;
 
 	/**

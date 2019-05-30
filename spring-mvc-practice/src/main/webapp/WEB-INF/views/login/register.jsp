@@ -30,7 +30,7 @@
 			</table>
 			<hr />
 			<p>
-				By creating an account you agree to our <a href="/spring-mvc-practice/todoapp/login.mvc">Terms & Privacy</a>.
+				By creating an account you agree to our <a href="/spring-mvc-practice/todoapp/login.mvc">Terms &amp; Privacy</a>.
 			</p>
 
 			<button type="submit">Register</button>

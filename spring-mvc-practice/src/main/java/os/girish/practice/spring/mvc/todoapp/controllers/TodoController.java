@@ -2,6 +2,7 @@ package os.girish.practice.spring.mvc.todoapp.controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -71,7 +72,10 @@ public class TodoController {
 			return "/login/login";
 		}
 		map.addAttribute("name", userName);
-		map.addAttribute("todoList", todoService.getTodos(userName));
+		//map.addAttribute("todoList", todoService.getTodos(userName));
+		List<Todo> list = todoService.getAllDb();
+		if(list!=null) 
+			map.addAttribute("todoList", list);
 		return "/todo/list";
 	}
 
@@ -110,7 +114,10 @@ public class TodoController {
 		if (result.hasErrors()) {
 			return "/todo/add";
 		}
-		todoService.addTodo(userName, todo.getDesc(), new java.util.Date());
+		java.util.Date date = new java.util.Date();
+		todoService.addTodo(userName, todo.getDesc(), date);
+		todo.setTarget(date);
+		todoService.saveDb(todo);
 		map.clear();
 		return "redirect:/todoapp/list.mvc";
 	}
