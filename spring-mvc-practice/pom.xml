@@ -95,18 +95,11 @@
             <version>${hibernate.version}</version>
         </dependency>
         
-        <!-- MChange -->
-        <dependency>
-            <groupId>com.mchange</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>${c3p0.version}</version>
-        </dependency>
-
 		<!-- JSON -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.9.4</version>
+			<version>2.9.9</version>
 		</dependency>
 
 		<!-- WebJars -->
