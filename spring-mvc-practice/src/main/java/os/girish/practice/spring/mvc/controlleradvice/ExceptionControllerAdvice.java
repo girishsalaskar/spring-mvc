@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @ControllerAdvice
 @EnableWebMvc
-public class ExceptionController {
+public class ExceptionControllerAdvice {
 
 	private Logger logger = Logger.getRootLogger();
 	
@@ -19,6 +19,6 @@ public class ExceptionController {
 	@ExceptionHandler(value=Exception.class)
 	public String exceptionHandler(HttpServletRequest req, Exception exc) {
 		logger.fatal(exc.getMessage()+" at "+req.getRequestURL(), exc);
-		return "/exception";
+		return "redirect:/error.do";
 	}
 }

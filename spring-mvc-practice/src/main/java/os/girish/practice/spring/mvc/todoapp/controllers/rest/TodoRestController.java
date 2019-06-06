@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,24 +12,24 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import os.girish.practice.spring.mvc.todoapp.models.Todo;
-import os.girish.practice.spring.mvc.todoapp.services.TodoService;
 
 @RestController
 @SessionAttributes("userName")
 public class TodoRestController {
 
-	@Autowired
-	private TodoService todoService;
+//	@Autowired
+//	private TodoService todoService;
 
 	@GetMapping(value = "/todoapp/rest/list.mvc")
 	public List<Todo> getAll(ModelMap map) {
-		List<Todo> todos = todoService.getTodos(map.get("userName").toString());
-		return todos;
+//		List<Todo> todos = todoService.getTodos(map.get("userName").toString());
+		return null;
 	}
 
 	@GetMapping(value = "/todoapp/rest/todo/{id}")
 	public Todo getTodo(ModelMap map, @PathVariable("id") int id) {
-		return todoService.getTodo(id);
+//		return todoService.getTodo(id);
+		return null;
 	}
 
 	@GetMapping(value = "/todoapp/rest/sample.mvc")
@@ -43,7 +42,7 @@ public class TodoRestController {
 		todo.setDesc("Desc");
 		todo.setDone(false);
 		todo.setTarget(new java.util.Date());
-		todo.setUser("admin");
+		//todo.setUser("admin");
 		map.put("object", todo);
 		return map;
 	}

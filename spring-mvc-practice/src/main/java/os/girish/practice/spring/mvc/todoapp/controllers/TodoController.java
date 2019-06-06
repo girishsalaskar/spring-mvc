@@ -115,7 +115,7 @@ public class TodoController {
 			return "/todo/add";
 		}
 		java.util.Date date = new java.util.Date();
-		todoService.addTodo(userName, todo.getDesc(), date);
+//		todoService.addTodo(userName, todo.getDesc(), date);
 		todo.setTarget(date);
 		todoService.saveDb(todo);
 		map.clear();
@@ -124,13 +124,13 @@ public class TodoController {
 
 	@GetMapping(value = "/todoapp/delete.mvc")
 	public String deleteTodo(ModelMap map, @RequestParam int id) {
-		todoService.removeTodo(id);
+//		todoService.removeTodo(id);
 		return "redirect:/todoapp/list.mvc";
 	}
 
 	@GetMapping(value = "/todoapp/update.mvc")
 	public String showUpdateTodo(ModelMap map, @RequestParam int id) {
-		map.addAttribute("todoApp", todoService.getTodo(id));
+//		map.addAttribute("todoApp", todoService.getTodo(id));
 		return "/todo/add";
 	}
 
@@ -139,8 +139,7 @@ public class TodoController {
 		if (result.hasErrors()) {
 			return "/todo/add";
 		}
-		todo.setUser(map.get("userName").toString());
-		todoService.updateTodo(todo);
+//		todoService.updateTodo(todo);
 		return "redirect:/todoapp/list.mvc";
 	}
 }

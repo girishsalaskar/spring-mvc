@@ -17,6 +17,6 @@
 	</servlet-mapping>
 	
 	<error-page>
-		<location>/WEB-INF/views/exception.jsp</location>
+		<location>/error.do</location>
 	</error-page>
 </web-app>

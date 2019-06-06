@@ -22,9 +22,9 @@
 							<td><fmt:formatDate value="${todo.target}" pattern="dd-MM-YYYY"/></td>
 							<td>${todo.done}</td>
 							<td><a type="button" class="btn btn-warning" 
-			href="/spring-mvc-practice/todoapp/update.mvc?id=${todo.id}">Update</a></td>
+			href="/todoapp/update.mvc?id=${todo.id}">Update</a></td>
 							<td><a type="button" class="btn btn-warning" 
-			href="/spring-mvc-practice/todoapp/delete.mvc?id=${todo.id}">Delete</a></td>
+			href="/todoapp/delete.mvc?id=${todo.id}">Delete</a></td>
 						</tr>
 					</c:forEach>
 				</c:if>
@@ -32,6 +32,6 @@
 		</table>
 	</div>
 	<div>
-		<a class="button" href="/spring-mvc-practice/todoapp/addNew.mvc">Add</a>
+		<a class="button" href="/todoapp/addNew.mvc">Add</a>
 	</div>
 <%@include file="/common/footer.jspf" %>

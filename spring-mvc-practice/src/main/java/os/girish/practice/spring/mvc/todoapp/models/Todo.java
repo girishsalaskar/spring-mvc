@@ -7,47 +7,69 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="todos")
+@Table(name = "todos")
 public class Todo {
 
 	@Id
-	@Column(name="id")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	private String user;
 
-	@Column(name="note")
+	@Column(name = "note")
 	@Size(min = 5, message = "Please enter minimum 5 characters!")
 	private String desc;
 
 	private Date target;
-	
-	@Column(name="is_done")
-	private boolean isDone;
 
-	/**
-	 * @param id
-	 * @param user
-	 * @param desc
-	 * @param target
-	 * @param isDone
-	 */
-	public Todo(int id, String user, String desc, Date target, boolean isDone) {
-		super();
-		this.id = id;
-		this.user = user;
-		this.desc = desc;
-		this.target = target;
-		this.isDone = isDone;
-	}
+	@Column(name = "is_done")
+	private boolean isDone = false;
+
+	@Column(name = "create_date")
+	private Date createDate = new Date();
+
+	@Column(name = "update_date")
+	private Date updateDate = new Date();
+	
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
 
 	public Todo() {
 
+	}
+
+	/**
+	 * @return the createDate
+	 */
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	/**
+	 * @param createDate the createDate to set
+	 */
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	/**
+	 * @return the updateDate
+	 */
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	/**
+	 * @param updateDate the updateDate to set
+	 */
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 
 	/**
@@ -67,14 +89,14 @@ public class Todo {
 	/**
 	 * @return the user
 	 */
-	public String getUser() {
+	public User getUser() {
 		return user;
 	}
 
 	/**
 	 * @param user the user to set
 	 */
-	public void setUser(String user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
@@ -144,7 +166,6 @@ public class Todo {
 
 	@Override
 	public String toString() {
-		return String.format("Todo [id=%s, user=%s, desc=%s, target=%s, isDone=%s]", id, user, desc, target,
-				isDone);
+		return String.format("Todo [id=%s, user=%s, desc=%s, target=%s, isDone=%s]", id, user, desc, target, isDone);
 	}
 }

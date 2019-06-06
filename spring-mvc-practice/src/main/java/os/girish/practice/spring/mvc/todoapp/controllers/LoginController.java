@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import os.girish.practice.spring.mvc.todoapp.services.LoginService;
+import os.girish.practice.spring.mvc.todoapp.services.UserService;
 
 @Controller
 @SessionAttributes("userName")
 public class LoginController {
 
 	@Autowired
-	private LoginService loginService;
+	private UserService loginService;
 	
 	private static Log logger = LogFactory.getLog(LoginController.class);
 	
@@ -36,7 +36,7 @@ public class LoginController {
 	public String handleLogin(ModelMap model, 
 			@RequestParam String name, @RequestParam String password) {
 		logger.debug("Login POST Method");
-		if(loginService.validateUser(name, password)) {
+		if(loginService.isValidUser(name, password)) {
 			model.clear();
 			model.put("userName", name);
 			return "redirect:/todoapp/list.mvc";
