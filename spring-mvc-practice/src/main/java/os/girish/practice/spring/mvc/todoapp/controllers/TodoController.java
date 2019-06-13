@@ -7,6 +7,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
+import org.jboss.logging.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -18,10 +19,12 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import os.girish.practice.spring.mvc.todoapp.models.Todo;
+import os.girish.practice.spring.mvc.todoapp.models.User;
 import os.girish.practice.spring.mvc.todoapp.services.TodoService;
 
 /**
@@ -35,15 +38,13 @@ import os.girish.practice.spring.mvc.todoapp.services.TodoService;
  *
  */
 @Controller
-@SessionAttributes("userName")
+@SessionAttributes("loggedInUser")
 public class TodoController {
 
 	private static Logger logger = Logger.getLogger(TodoController.class);
 	/**
 	 * This is simple service created with the help of <code>@Autowired</code>
 	 * annotation.
-	 * 
-	 * @see Autowired
 	 */
 	@Autowired
 	private TodoService todoService;
@@ -64,17 +65,15 @@ public class TodoController {
 	 */
 	@GetMapping(value = "/todoapp/list.mvc")
 	public String displayTodos(ModelMap map) {
-		logger.debug("List displaying...");
-		String userName = (String) map.get("userName");
-		if (userName == null || userName == "") {
+		Object loggedInUserObj = map.get("loggedInUser");
+		if (loggedInUserObj == null || !(loggedInUserObj instanceof User)) {
 			map.addAttribute("errorMessage", "You must login first!");
-			// return "redirect:/todoapp/login.mvc";
 			return "/login/login";
 		}
-		map.addAttribute("name", userName);
-		//map.addAttribute("todoList", todoService.getTodos(userName));
-		List<Todo> list = todoService.getAllDb();
-		if(list!=null) 
+		User loggedInUser = (User) loggedInUserObj;
+		map.addAttribute("name", loggedInUser.getUserName());
+		List<Todo> list = todoService.getTodosByUser(loggedInUser);
+		if (list != null)
 			map.addAttribute("todoList", list);
 		return "/todo/list";
 	}
@@ -89,34 +88,28 @@ public class TodoController {
 	 */
 	@GetMapping(value = "/todoapp/addNew.mvc")
 	public ModelAndView showTodoForm(ModelMap map) {
-		String userName = (String) map.get("userName");
-		if (userName == null || userName == "") {
+		Object loggedInUserObj = map.get("loggedInUser");
+		if (loggedInUserObj == null || !(loggedInUserObj instanceof User)) {
 			map.addAttribute("errorMessage", "You must login first!");
-			// return "redirect:/todoapp/login.mvc";
-			// return "/login/login";
 			return new ModelAndView("/login/login");
 		}
+		//User loggedInUser = (User) loggedInUserObj;
 		ModelAndView view = new ModelAndView("/todo/add", "todoApp", new Todo());
-		/*
-		 * map.addAttribute("todo", new Todo()); return "/todo/add";
-		 */
 		return view;
 	}
 
 	@PostMapping(value = "/todoapp/addNew.mvc")
 	public String storeTodoForm(@Valid @ModelAttribute("todoApp") Todo todo, BindingResult result, ModelMap map) {
-		String userName = (String) map.get("userName");
-		if (userName == null || userName == "") {
+		Object loggedInUserObj = map.get("loggedInUser");
+		if (loggedInUserObj == null || !(loggedInUserObj instanceof User)) {
 			map.addAttribute("errorMessage", "You must login first!");
-			// return "redirect:/todoapp/login.mvc";
 			return "/login/login";
 		}
 		if (result.hasErrors()) {
 			return "/todo/add";
 		}
-		java.util.Date date = new java.util.Date();
-//		todoService.addTodo(userName, todo.getDesc(), date);
-		todo.setTarget(date);
+		User loggedInUser = (User) loggedInUserObj;
+		todo.setUser(loggedInUser);
 		todoService.saveDb(todo);
 		map.clear();
 		return "redirect:/todoapp/list.mvc";
@@ -124,22 +117,55 @@ public class TodoController {
 
 	@GetMapping(value = "/todoapp/delete.mvc")
 	public String deleteTodo(ModelMap map, @RequestParam int id) {
-//		todoService.removeTodo(id);
+		Object loggedInUserObj = map.get("loggedInUser");
+		if (loggedInUserObj == null || !(loggedInUserObj instanceof User)) {
+			map.addAttribute("errorMessage", "You must login first!");
+			return "/login/login";
+		}
+		todoService.deleteById(id);
+		logger.fatal("Deleted ID : ");
 		return "redirect:/todoapp/list.mvc";
 	}
 
 	@GetMapping(value = "/todoapp/update.mvc")
 	public String showUpdateTodo(ModelMap map, @RequestParam int id) {
-//		map.addAttribute("todoApp", todoService.getTodo(id));
+		Object loggedInUserObj = map.get("loggedInUser");
+		if (loggedInUserObj == null || !(loggedInUserObj instanceof User)) {
+			map.addAttribute("errorMessage", "You must login first!");
+			return "/login/login";
+		}
+		Todo todo = todoService.getTodoById(id);
+		map.addAttribute("todoApp", todo);
 		return "/todo/add";
 	}
 
 	@PostMapping(value = "/todoapp/update.mvc")
 	public String updateTodo(@Valid @ModelAttribute("todoApp") Todo todo, BindingResult result, ModelMap map) {
+		Object loggedInUserObj = map.get("loggedInUser");
+		if (loggedInUserObj == null || !(loggedInUserObj instanceof User)) {
+			map.addAttribute("errorMessage", "You must login first!");
+			return "/login/login";
+		}
 		if (result.hasErrors()) {
 			return "/todo/add";
 		}
-//		todoService.updateTodo(todo);
+		User user = (User)loggedInUserObj;
+		todo.setUser(user);
+		todoService.saveDb(todo);
 		return "redirect:/todoapp/list.mvc";
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/todoapp/changestatus.mvc")
+	public String changeStatus(ModelMap map, @RequestParam(value="todoId") int todoId, @RequestParam(value="todoStatus") boolean status) {
+		Object loggedInUserObj = map.get("loggedInUser");
+		if (loggedInUserObj == null || !(loggedInUserObj instanceof User)) {
+			map.addAttribute("errorMessage", "You must login first!");
+			return "/login/login";
+		}
+		Todo todo = todoService.getTodoById(todoId);
+		todo.setDone(status);
+		todoService.saveDb(todo);
+		return "Todo ID : "+todoId+" TodoStatus : "+status;
 	}
 }

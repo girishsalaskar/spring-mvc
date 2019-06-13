@@ -2,7 +2,7 @@
 	<H1><sTag:message code="list.yourTodos"></sTag:message></H1>
 	<div class="container">
 		<table class="table table-striped">
-			<caption>Your Todos are</caption>
+			<caption><sTag:message code="list.yourTodos"></sTag:message></caption>
 
 			<thead>
 				<tr>
@@ -20,7 +20,7 @@
 						<tr>
 							<td>${todo.desc}</td>
 							<td><fmt:formatDate value="${todo.target}" pattern="dd-MM-YYYY"/></td>
-							<td>${todo.done}</td>
+							<td><input type="checkbox" value="${todo.done}" onclick="updateStatus(${todo.id}, this.checked);"> </td>
 							<td><a type="button" class="btn btn-warning" 
 			href="/todoapp/update.mvc?id=${todo.id}">Update</a></td>
 							<td><a type="button" class="btn btn-warning" 
@@ -32,6 +32,21 @@
 		</table>
 	</div>
 	<div>
-		<a class="button" href="/todoapp/addNew.mvc">Add</a>
+		<a class="btn btn-primary" href="/todoapp/addNew.mvc">Add</a>
 	</div>
+	<script>
+	function updateStatus(id, status) {
+		$.ajax({
+			url:"/todoapp/changestatus.mvc",
+			method:"GET",
+			data:{
+					todoId:id,
+					todoStatus:status
+				},
+			success:function(response) {
+				console.log(response);
+			}
+		});
+	}
+	</script>
 <%@include file="/common/footer.jspf" %>

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import os.girish.practice.spring.mvc.todoapp.models.Todo;
 import os.girish.practice.spring.mvc.todoapp.models.User;
 import os.girish.practice.spring.mvc.todoapp.models.dao.TodoDao;
-import os.girish.practice.spring.mvc.todoapp.models.dao.TodoDaoImplJdbc;
+import os.girish.practice.spring.mvc.todoapp.models.dao.TodoDaoImplHBNet;
 
 @Service
 public class TodoService {
@@ -19,7 +19,7 @@ public class TodoService {
 
 	private static Logger logger = Logger.getLogger(TodoService.class);
 
-	public void setTodoDao(TodoDaoImplJdbc todo) {
+	public void setTodoDao(TodoDaoImplHBNet todo) {
 		todoDao = todo;
 	}
 
@@ -32,8 +32,16 @@ public class TodoService {
 		logger.debug("List is to be return");
 		return todoDao.fetchAll();
 	}
+
+	public List<Todo> getTodosByUser(User todo) {
+		return todoDao.getByUser(todo);
+	}
 	
-	public List<User> getTodosByUser(User todo) {
-		return null;
+	public Todo getTodoById(int id) {
+		return todoDao.getById(id);
+	}
+	
+	public void deleteById(int id) {
+		todoDao.deleteById(id);
 	}
 }

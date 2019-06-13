@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import os.girish.practice.spring.mvc.todoapp.models.User;
 import os.girish.practice.spring.mvc.todoapp.services.UserService;
 
 @Controller
-@SessionAttributes("userName")
+@SessionAttributes("loggedInUser")
 public class LoginController {
 
 	@Autowired
@@ -36,9 +37,10 @@ public class LoginController {
 	public String handleLogin(ModelMap model, 
 			@RequestParam String name, @RequestParam String password) {
 		logger.debug("Login POST Method");
-		if(loginService.isValidUser(name, password)) {
+		User loggedInUser = loginService.isValidUser(name, password);
+		if(loggedInUser!=null) {
 			model.clear();
-			model.put("userName", name);
+			model.put("loggedInUser", loggedInUser);
 			return "redirect:/todoapp/list.mvc";
 		} else {
 			model.put("errorMessage", "Invalid user name and/or password!");

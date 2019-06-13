@@ -26,10 +26,7 @@ public class UserService {
 		return userDao.getAllUsers();
 	}
 	
-	public boolean isValidUser(String userName, String password) {
-		if(userDao.findByUserNamePassword(userName, password)!=null) {
-			return true;
-		}
-		return false;
+	public User isValidUser(String userName, String password) {
+		return userDao.findByUserNamePassword(userName, password);
 	}
 }

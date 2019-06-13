@@ -11,5 +11,9 @@ public interface TodoDao {
 	
 	public List<Todo> fetchAll();
 	
-	public List<User> getByUser(User todo);
+	public List<Todo> getByUser(User todo);
+	
+	public Todo getById(int id);
+
+	public void deleteById(int id);
 }
