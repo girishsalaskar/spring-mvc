@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -74,7 +75,6 @@ public class TodoDaoImplHBNet implements TodoDao {
 		Session session = factory.getCurrentSession();
 		Todo todo = session.load(Todo.class, id);
 		session.delete(todo);
-		logger.debug("Object deleted!");
 	}
 
 }

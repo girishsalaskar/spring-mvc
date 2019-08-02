@@ -2,12 +2,13 @@ package os.girish.practice.spring.mvc.todoapp.controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
-import org.jboss.logging.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -157,15 +158,21 @@ public class TodoController {
 	
 	@ResponseBody
 	@GetMapping(value="/todoapp/changestatus.mvc")
-	public String changeStatus(ModelMap map, @RequestParam(value="todoId") int todoId, @RequestParam(value="todoStatus") boolean status) {
+	public Map<Object,Object> changeStatus(ModelMap map, @RequestParam(value="todoId") int todoId, @RequestParam(value="todoStatus") boolean status) {
 		Object loggedInUserObj = map.get("loggedInUser");
+		Map<Object, Object> response = new HashMap<Object, Object>();
 		if (loggedInUserObj == null || !(loggedInUserObj instanceof User)) {
-			map.addAttribute("errorMessage", "You must login first!");
-			return "/login/login";
+			response.put("status", "403");
+			response.put("message", "You must login first!");
+			return response;
 		}
 		Todo todo = todoService.getTodoById(todoId);
 		todo.setDone(status);
 		todoService.saveDb(todo);
-		return "Todo ID : "+todoId+" TodoStatus : "+status;
+		response.put("status", "200");
+		response.put("message", "Status Updated Successfully!");
+		response.put("todoId", todoId);
+		response.put("todoStatus", status);
+		return response;
 	}
 }

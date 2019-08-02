@@ -20,7 +20,16 @@
 						<tr>
 							<td>${todo.desc}</td>
 							<td><fmt:formatDate value="${todo.target}" pattern="dd-MM-YYYY"/></td>
-							<td><input type="checkbox" value="${todo.done}" onclick="updateStatus(${todo.id}, this.checked);"> </td>
+							<td><input type="checkbox" value="${todo.done}" onclick="updateStatus(${todo.id}, this.checked);"
+								<c:choose>
+									<c:when test="${todo.done}">
+									checked="checked"
+									</c:when>
+									<c:otherwise>
+									""
+									</c:otherwise>
+								</c:choose>
+							> </td>
 							<td><a type="button" class="btn btn-warning" 
 			href="/todoapp/update.mvc?id=${todo.id}">Update</a></td>
 							<td><a type="button" class="btn btn-warning" 

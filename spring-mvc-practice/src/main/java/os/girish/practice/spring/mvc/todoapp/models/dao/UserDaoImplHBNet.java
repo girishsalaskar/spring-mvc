@@ -66,4 +66,10 @@ public class UserDaoImplHBNet implements UserDao {
 		}
 		return userObj;
 	}
+
+	@Override
+	@Transactional
+	public void saveUser(User user) {
+		factory.getCurrentSession().saveOrUpdate(user);
+	}
 }
