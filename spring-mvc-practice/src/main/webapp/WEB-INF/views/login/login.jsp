@@ -3,7 +3,7 @@
 <title>Login to todo Application</title>
 </head>
 <body>
-    <p><font color="red">${errorMessage}</font></p>
+    <p><font color="red"><c:out value="${errorMessage}" /></font></p>
     <form action="/todoapp/login.mvc" method="POST">
         Name : <input name="name" type="text" /> Password : <input name="password" type="password" /> <input type="submit" />
     </form>
