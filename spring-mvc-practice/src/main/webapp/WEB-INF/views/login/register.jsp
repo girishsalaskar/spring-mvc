@@ -8,7 +8,7 @@
 		<table>
 			<tr>
 				<td><sForm:label path="userName">
-						<b>Full Name</b>
+						<span class="b">Full Name</span>
 					</sForm:label></td>
 				<td><sForm:input path="userName" type="text"
 						placeholder="Enter Full Name" required="required"></sForm:input> <sForm:errors
@@ -16,7 +16,7 @@
 			</tr>
 			<tr>
 				<td><sForm:label path="userId">
-						<b>User ID</b>
+						<span class="b">User ID</span>
 					</sForm:label></td>
 				<td><sForm:input path="userId" type="text"
 						placeholder="Enter User ID" required="required"></sForm:input> <sForm:errors
@@ -24,7 +24,7 @@
 			</tr>
 			<tr>
 				<td><sForm:label path="password">
-						<b>Password</b>
+						<span class="b">Password</span>
 					</sForm:label></td>
 				<td><sForm:input path="password" type="password"
 						required="required"></sForm:input> <sForm:errors path="password"></sForm:errors></td>
