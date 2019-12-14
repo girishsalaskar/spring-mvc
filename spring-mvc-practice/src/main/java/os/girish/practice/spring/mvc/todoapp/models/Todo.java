@@ -40,10 +40,6 @@ public class Todo {
 	@JoinColumn(name="user_id")
 	private User user;
 
-	public Todo() {
-
-	}
-
 	/**
 	 * @return the createDate
 	 */
