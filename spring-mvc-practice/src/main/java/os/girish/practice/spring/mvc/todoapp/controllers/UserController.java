@@ -30,7 +30,7 @@ public class UserController {
 	public String showLoginPage(ModelMap map) {
 		logger.debug("Login GET Method");
 		String userName = (String)map.get("userName");
-		if(userName!=null && userName!="") {
+		if(userName!=null && !userName.equals("")) {
 			return "redirect:/todoapp/list.mvc";
 		}
 		return "login/login";
