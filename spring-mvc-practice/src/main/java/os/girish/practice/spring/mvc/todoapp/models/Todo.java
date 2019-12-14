@@ -154,10 +154,7 @@ public class Todo {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Todo other = (Todo) obj;
-		if (id != other.id)
-			return false;
-		return true;
+		return id == ((Todo) obj).id;
 	}
 
 	@Override
