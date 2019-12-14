@@ -5,6 +5,6 @@
 <title>Welcome</title>
 </head>
 <body>
-	Welcome ${userName}. You entered ${password}
+	Welcome <c:out value="${userName}" />. You entered <c:out value="${password}" />
 </body>
 </html>
