@@ -4,11 +4,10 @@ import java.util.List;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ public class TodoDaoImplHBNet implements TodoDao {
 	@Autowired
 	private SessionFactory factory;
 	
-	private static Logger logger = Logger.getLogger(TodoDaoImplHBNet.class);
+	//private static Logger logger = Logger.getLogger(TodoDaoImplHBNet.class);
 	
 	@Transactional
 	public void save(Todo todo) {
