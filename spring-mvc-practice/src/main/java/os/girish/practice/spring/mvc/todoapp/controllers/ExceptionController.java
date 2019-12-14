@@ -27,6 +27,8 @@ public class ExceptionController {
 		case 400:
 			view.addObject("message", "Bad request!");
 			break;
+		default:
+			break;
 		}
 		return view;
 	}
