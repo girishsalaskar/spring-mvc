@@ -7,9 +7,7 @@ import os.girish.practice.spring.mvc.todoapp.models.User;
 public interface UserDao {
 
 	public List<User> getAllUsers();
-	public default void saveUser(User user) {
-		
-	}
+	public void saveUser(User user);
 	
 	public User findByUserId(String userId);
 	
