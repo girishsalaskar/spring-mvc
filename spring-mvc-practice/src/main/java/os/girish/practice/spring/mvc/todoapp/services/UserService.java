@@ -15,7 +15,7 @@ public class UserService {
 	private UserDao userDao;
 
 	public boolean validateUser(String user, String password) {
-		return user.equalsIgnoreCase("admin") && password.equals("password");
+		return "admin".equalsIgnoreCase(user) && "password".equals(password);
 	}
 
 	public void saveUser(User user) {
