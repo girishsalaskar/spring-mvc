@@ -1,6 +1,6 @@
 <%@include file="/common/header.jspf"%>
 <sForm:form method="POST" modelAttribute="userModel">
-	<div class="container">
+	<div styleclass="container">
 		<h1>Register</h1>
 		<p>Please fill in this form to create an account.</p>
 		<hr />
